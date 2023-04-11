@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Signup() {
   const [emailValue, setEmailValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
   const [valueTerm, setValueTerm] = useState(false)
+  const navigate = useNavigate()
 
   const submitData = () => {
     axios
@@ -13,10 +15,10 @@ function Signup() {
         password: passwordValue,
       })
       .then((res) => {
-        console.log(res)
+        navigate('/signin')
       })
       .catch((err) => {
-        console.log(err)
+        alert(err.response.data.message)
       })
   }
 
