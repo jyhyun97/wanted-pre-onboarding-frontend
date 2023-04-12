@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Main from './pages/Main'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
-import Todos from './pages/Todos'
+import Todo from './pages/Todo'
 
 function App() {
   const router = createBrowserRouter([
@@ -19,8 +19,8 @@ function App() {
       element: <Signup />,
     },
     {
-      path: '/todos',
-      element: <Todos />,
+      path: '/todo',
+      element: <Todo />,
     },
   ])
   return (
