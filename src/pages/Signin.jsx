@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 function Signin() {
   const [emailValue, setEmailValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
   const [valueTerm, setValueTerm] = useState(false)
+  const access_token = localStorage.getItem('access_token')
   const navigate = useNavigate()
 
   const submitData = () => {
@@ -30,25 +31,31 @@ function Signin() {
 
   return (
     <div>
-      <h1>로그인</h1>
-      <form>
-        <input
-          data-testid='email-input'
-          onChange={(e) => setEmailValue(e.target.value)}
-        />
-        <input
-          data-testid='password-input'
-          onChange={(e) => setPasswordValue(e.target.value)}
-        />
-        <button
-          data-testid='signin-button'
-          type={'button'}
-          disabled={!valueTerm}
-          onClick={submitData}
-        >
-          로그인
-        </button>
-      </form>
+      {access_token ? (
+        <Navigate to='/todo' />
+      ) : (
+        <div>
+          <h1>로그인</h1>
+          <form>
+            <input
+              data-testid='email-input'
+              onChange={(e) => setEmailValue(e.target.value)}
+            />
+            <input
+              data-testid='password-input'
+              onChange={(e) => setPasswordValue(e.target.value)}
+            />
+            <button
+              data-testid='signin-button'
+              type={'button'}
+              disabled={!valueTerm}
+              onClick={submitData}
+            >
+              로그인
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   )
 }
