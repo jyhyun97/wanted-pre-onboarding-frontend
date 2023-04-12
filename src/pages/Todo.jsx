@@ -1,4 +1,4 @@
-function Todos() {
+function Todo() {
   return (
     <div>
       <div>
@@ -21,4 +21,4 @@ function Todos() {
   )
 }
 
-export default Todos
+export default Todo
