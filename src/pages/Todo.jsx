@@ -1,7 +1,29 @@
+import axios from 'axios'
+import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
 function Todo() {
   const access_token = localStorage.getItem('access_token')
+  const [todoData, setTodoData] = useState('')
+  const submitTodoData = () => {
+    axios
+      .post(
+        'https://www.pre-onboarding-selection-task.shop/todos',
+        { todo: todoData },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            ContentType: 'application/json',
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   return (
     <div>
@@ -11,8 +33,13 @@ function Todo() {
         <div>
           <div>
             입력 영역
-            <input />
-            <button>추가</button>
+            <input
+              data-testid='new-todo-input'
+              onChange={(e) => setTodoData(e.target.value)}
+            />
+            <button data-testid='new-todo-add-button' onClick={submitTodoData}>
+              추가
+            </button>
           </div>
           <div>
             todo 영역
