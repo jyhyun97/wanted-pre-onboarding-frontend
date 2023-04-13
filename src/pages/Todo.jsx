@@ -4,13 +4,13 @@ import { Navigate } from 'react-router-dom'
 
 function Todo() {
   const access_token = localStorage.getItem('access_token')
-  const [todoData, setTodoData] = useState('')
-  const [todos, setTodos] = useState([])
-  const postTodoData = () => {
+  const [todo, setTodo] = useState('')
+  const [todolist, setTodolist] = useState([])
+  const postTodo = () => {
     axios
       .post(
         'https://www.pre-onboarding-selection-task.shop/todos',
-        { todo: todoData },
+        { todo: todo },
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -20,26 +20,27 @@ function Todo() {
       )
       .then((res) => {
         console.log(res)
-        getTodoData()
+        getTodo()
       })
       .catch((err) => {
         console.log(err)
       })
   }
-  const getTodoData = () => {
+  const getTodo = () => {
     axios
       .get('https://www.pre-onboarding-selection-task.shop/todos', {
         headers: { Authorization: `Bearer ${access_token}` },
       })
       .then((res) => {
-        setTodos(res.data)
+        setTodolist(res.data)
       })
       .catch((err) => {
         console.log(err)
       })
   }
+
   useEffect(() => {
-    getTodoData()
+    getTodo()
   }, [])
 
   return (
@@ -52,15 +53,15 @@ function Todo() {
             입력 영역
             <input
               data-testid='new-todo-input'
-              onChange={(e) => setTodoData(e.target.value)}
+              onChange={(e) => setTodo(e.target.value)}
             />
-            <button data-testid='new-todo-add-button' onClick={postTodoData}>
+            <button data-testid='new-todo-add-button' onClick={postTodo}>
               추가
             </button>
           </div>
           <div>
             todo 영역
-            {todos.map((ele) => {
+            {todolist.map((ele) => {
               return (
                 <li key={ele.id}>
                   <label>
