@@ -38,6 +38,25 @@ function Todo() {
         console.log(err)
       })
   }
+  const updateTodo = (props) => {
+    axios
+      .put(
+        `https://www.pre-onboarding-selection-task.shop/todos/${props.id}`,
+        { todo: props.todo, isCompleted: !props.isCompleted },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            ContentType: 'application/json',
+          },
+        }
+      )
+      .then((res) => {
+        getTodo()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   useEffect(() => {
     getTodo()
@@ -65,7 +84,13 @@ function Todo() {
               return (
                 <li key={ele.id}>
                   <label>
-                    <input type='checkbox' defaultChecked={ele.isCompleted} />
+                    <input
+                      type='checkbox'
+                      defaultChecked={ele.isCompleted}
+                      onClick={() => {
+                        updateTodo(ele)
+                      }}
+                    />
                     <span>{ele.todo}</span>
                   </label>
                   <button data-testid='modify-button'>수정</button>
