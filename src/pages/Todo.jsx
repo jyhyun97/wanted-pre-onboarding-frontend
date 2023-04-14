@@ -45,7 +45,7 @@ function Todo() {
       .put(
         `https://www.pre-onboarding-selection-task.shop/todos/${props.id}`,
         { todo: props.todo, isCompleted: props.isCompleted },
-        { headers: { headers: header } }
+        { headers: header }
       )
       .then((res) => {
         getTodo()
