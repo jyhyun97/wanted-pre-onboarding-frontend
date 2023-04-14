@@ -8,18 +8,17 @@ function Todo() {
   const [todolist, setTodolist] = useState([])
   const [editMode, setEditMode] = useState({ state: false, id: undefined })
   const editInput = useRef()
+  const header = {
+    Authorization: `Bearer ${access_token}`,
+    ContentType: 'application/json',
+  }
 
   const postTodo = () => {
     axios
       .post(
         'https://www.pre-onboarding-selection-task.shop/todos',
         { todo: todo },
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            ContentType: 'application/json',
-          },
-        }
+        { headers: header }
       )
       .then((res) => {
         console.log(res)
@@ -32,7 +31,7 @@ function Todo() {
   const getTodo = () => {
     axios
       .get('https://www.pre-onboarding-selection-task.shop/todos', {
-        headers: { Authorization: `Bearer ${access_token}` },
+        headers: header,
       })
       .then((res) => {
         setTodolist(res.data)
@@ -46,12 +45,7 @@ function Todo() {
       .put(
         `https://www.pre-onboarding-selection-task.shop/todos/${props.id}`,
         { todo: props.todo, isCompleted: props.isCompleted },
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            ContentType: 'application/json',
-          },
-        }
+        { headers: header }
       )
       .then((res) => {
         getTodo()
@@ -64,12 +58,7 @@ function Todo() {
     axios
       .delete(
         `https://www.pre-onboarding-selection-task.shop/todos/${props.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            ContentType: 'application/json',
-          },
-        }
+        { headers: header }
       )
       .then((res) => {
         console.log(res)
@@ -92,7 +81,7 @@ function Todo() {
       ) : (
         <div>
           <div>
-            입력 영역
+            할 일
             <input
               data-testid='new-todo-input'
               onChange={(e) => setTodo(e.target.value)}
@@ -102,7 +91,7 @@ function Todo() {
             </button>
           </div>
           <div>
-            todo 영역
+            할 일 목록
             {todolist.map((ele) => {
               return (
                 <li key={ele.id}>
