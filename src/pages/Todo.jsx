@@ -1,11 +1,14 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
 function Todo() {
   const access_token = localStorage.getItem('access_token')
   const [todo, setTodo] = useState('')
   const [todolist, setTodolist] = useState([])
+  const [editMode, setEditMode] = useState({ state: false, id: undefined })
+  const editInput = useRef()
+
   const postTodo = () => {
     axios
       .post(
@@ -42,7 +45,7 @@ function Todo() {
     axios
       .put(
         `https://www.pre-onboarding-selection-task.shop/todos/${props.id}`,
-        { todo: props.todo, isCompleted: !props.isCompleted },
+        { todo: props.todo, isCompleted: props.isCompleted },
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -57,9 +60,29 @@ function Todo() {
         console.log(err)
       })
   }
+  const deleteTodo = (props) => {
+    axios
+      .delete(
+        `https://www.pre-onboarding-selection-task.shop/todos/${props.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            ContentType: 'application/json',
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res)
+        getTodo()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   useEffect(() => {
     getTodo()
+    // eslint-disable-next-line
   }, [])
 
   return (
@@ -88,13 +111,60 @@ function Todo() {
                       type='checkbox'
                       defaultChecked={ele.isCompleted}
                       onClick={() => {
-                        updateTodo(ele)
+                        updateTodo({
+                          ...ele,
+                          isCompleted: !ele.isCompleted,
+                        })
                       }}
                     />
-                    <span>{ele.todo}</span>
+                    {editMode.state && editMode.id === ele.id ? (
+                      <>
+                        <input
+                          type='text'
+                          ref={editInput}
+                          defaultValue={ele.todo}
+                        />
+                        <button
+                          data-testid='submit-button'
+                          onClick={() => {
+                            updateTodo({
+                              ...ele,
+                              todo: editInput.current.value,
+                            })
+                            setEditMode({ state: false, id: ele.id })
+                          }}
+                        >
+                          제출
+                        </button>
+                        <button
+                          data-testid='cancel-button'
+                          onClick={() => {
+                            setEditMode({ state: false, id: ele.id })
+                          }}
+                        >
+                          취소
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <span>{ele.todo}</span>
+                        <button
+                          data-testid='modify-button'
+                          onClick={() =>
+                            setEditMode({ state: true, id: ele.id })
+                          }
+                        >
+                          수정
+                        </button>
+                        <button
+                          data-testid='delete-button'
+                          onClick={() => deleteTodo(ele)}
+                        >
+                          삭제
+                        </button>
+                      </>
+                    )}
                   </label>
-                  <button data-testid='modify-button'>수정</button>
-                  <button data-testid='delete-button'>삭제</button>
                 </li>
               )
             })}
