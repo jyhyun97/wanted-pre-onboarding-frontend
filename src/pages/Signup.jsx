@@ -35,10 +35,12 @@ function Signup() {
         <div>
           <h1>회원가입</h1>
           <form>
+            <span>이메일</span>
             <input
               data-testid='email-input'
               onChange={(e) => setEmailValue(e.target.value)}
             />
+            <span>비밀번호</span>
             <input
               data-testid='password-input'
               onChange={(e) => setPasswordValue(e.target.value)}
