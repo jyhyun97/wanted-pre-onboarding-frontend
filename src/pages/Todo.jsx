@@ -58,7 +58,7 @@ function Todo() {
     axios
       .delete(
         `https://www.pre-onboarding-selection-task.shop/todos/${props.id}`,
-        { headers: { headers: header } }
+        { headers: header }
       )
       .then((res) => {
         console.log(res)
