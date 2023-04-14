@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+## 실행 방법
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+npm install & npm start
 
-## Available Scripts
+http://localhost:3000 접속
 
-In the project directory, you can run:
+## 데모 영상
 
-### `npm start`
+https://www.youtube.com/watch?v=c-VhhpvmtaI
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 사용 기술
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- react + javascript
+- react router dom
+- axios
 
-### `npm test`
+## 설명
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+todolist를 구현하는 과제입니다.
 
-### `npm run build`
+1. 메인 페이지에서 로그인/회원가입 이동이 가능합니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. signup 페이지에서 회원가입을 할 수 있습니다.  
+   이메일에는 '@' 포함, 비밀번호는 8자 이상이어야 합니다.  
+   회원가입 성공 시 signin 페이지로 리다이렉션됩니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. signin 페이지에서 로그인을 할 수 있습니다.  
+   유효성 규칙은 signup페이지와 같습니다.  
+   로그인 성공 시 todo 페이지로 리다이렉션됩니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. todo 페이지에서 새로운 할 일을 추가할 수 있습니다.  
+   할 일 목록에서 할 일들을 체크하고, 수정 및 삭제를 할 수 있습니다.  
+   수정 모드에서 할 일의 내용을 바꿀 수 있습니다. 도중 취소하면 원래 내용으로 돌아갑니다.  
+   만약 access_token 없이 todo 페이지로 접근한다면 signin 페이지로 리다이렉션됩니다.
